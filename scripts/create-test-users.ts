@@ -55,9 +55,11 @@ async function createTestUsers() {
   console.log('✅ Deuxième utilisateur normal créé:', user2.email);
 
   console.log('\n📋 Utilisateurs de test créés :');
-  console.log('Admin: admin@pokemon.com / admin123');
   console.log('User 1: user@pokemon.com / user123');
   console.log('User 2: user2@pokemon.com / user2123');
+  console.log('\n🛡️ Pour créer un admin :');
+  console.log('1. Créez un compte via /auth/register');
+  console.log('2. Modifiez le rôle en base (USER → ADMIN)');
 }
 
 createTestUsers()

@@ -5,7 +5,7 @@ import { IsEmail, IsString } from 'class-validator';
 export class SignInDto {
   @ApiProperty({
     description: 'Adresse email de l\'utilisateur',
-    example: 'admin@pokemon.com',
+    example: 'user@pokemon.com',
   })
   @IsEmail()
   @Type(() => String)
@@ -13,7 +13,7 @@ export class SignInDto {
 
   @ApiProperty({
     description: 'Mot de passe de l\'utilisateur',
-    example: 'admin123',
+    example: 'user123',
   })
   @IsString()
   @Type(() => String)
