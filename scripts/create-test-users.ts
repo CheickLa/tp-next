@@ -7,7 +7,20 @@ async function createTestUsers() {
   console.log('Création des utilisateurs de test...');
 
   // Créer un utilisateur admin
-  // Pour l'admin à la correction du TP, il faut directement update le role d'un user en base de données avec prisma studio apès après générer les seed
+  const adminPassword = await bcrypt.hash('admin123', 10);
+  const admin = await prisma.user.upsert({
+    where: { email: 'admin@pokemon.com' },
+    update: {},
+    create: {
+      firstName: 'Admin',
+      lastName: 'Pokemon',
+      email: 'admin@pokemon.com',
+      password: adminPassword,
+      role: 'ADMIN',
+      isEmailVerified: true, // Compte de test déjà vérifié
+    },
+  });
+  console.log('✅ Utilisateur admin créé:', admin.email);
 
   // Créer un utilisateur normal
   const userPassword = await bcrypt.hash('user123', 10);
@@ -20,6 +33,7 @@ async function createTestUsers() {
       email: 'user@pokemon.com',
       password: userPassword,
       role: 'USER',
+      isEmailVerified: true, // Compte de test déjà vérifié
     },
   });
   console.log('✅ Utilisateur normal créé:', user.email);
@@ -35,6 +49,7 @@ async function createTestUsers() {
       email: 'user2@pokemon.com',
       password: user2Password,
       role: 'USER',
+      isEmailVerified: true, // Compte de test déjà vérifié
     },
   });
   console.log('✅ Deuxième utilisateur normal créé:', user2.email);
