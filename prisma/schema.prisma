@@ -13,8 +13,38 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
 model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
-  password String
+  id        Int     @id @default(autoincrement())
+  firstName  String
+  lastName  String
+  email     String  @unique
+  password  String?
+  role      Role    @default(USER)
+  
+  // Relation avec les Pokémon créés par cet utilisateur
+  pokemon   Pokemon[]
+}
+
+model Pokemon {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  type1       String
+  type2       String?
+  hp          Int
+  attack      Int
+  defense     Int
+  speed       Int
+  description String?
+  imageUrl    String?
+  createdBy   Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relation avec l'utilisateur qui a créé le Pokémon
+  creator     User     @relation(fields: [createdBy], references: [id], onDelete: Cascade)
 }
