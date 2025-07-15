@@ -7,20 +7,7 @@ async function createTestUsers() {
   console.log('Création des utilisateurs de test...');
 
   // Créer un utilisateur admin
-  const adminPassword = await bcrypt.hash('admin123', 10);
-  const admin = await prisma.user.upsert({
-    where: { email: 'admin@pokemon.com' },
-    update: {},
-    create: {
-      firstName: 'Admin',
-      lastName: 'Pokemon',
-      email: 'admin@pokemon.com',
-      password: adminPassword,
-      role: 'ADMIN',
-      isEmailVerified: true, // Compte de test déjà vérifié
-    },
-  });
-  console.log('✅ Utilisateur admin créé:', admin.email);
+  // POur l'admin, moidifier le rôle d'un user classique en base de données après la création
 
   // Créer un utilisateur normal
   const userPassword = await bcrypt.hash('user123', 10);
